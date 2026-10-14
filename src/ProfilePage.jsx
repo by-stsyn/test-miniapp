@@ -302,37 +302,38 @@ export default function ProfilePage() {
     setCars((prev) => prev.filter((_, idx) => idx !== i));
   };
 
+  const hasCustomName = Boolean(user?.firstName || user?.first_name || user?.username);
   const displayName =
     user?.firstName || user?.first_name || user?.username || "Личный кабинет";
 
   return (
     <div className="min-h-screen bg-[#f8fafc] pb-28 text-slate-900">
-      <div className="max-w-md mx-auto p-4">
+      <div className="max-w-md mx-auto p-4 space-y-4">
         {/* Кнопка Назад */}
-        <div className="mb-3">
+        <div>
           <button
             onClick={() => navigate("/")}
-            className="inline-flex items-center text-xs font-semibold text-[#5e8f23] hover:text-[#4b731c] transition-colors"
+            className="inline-flex items-center text-[13px] font-semibold text-[#5e8f23] hover:text-[#4b731c] transition-colors py-1"
           >
-            <ArrowLeft size={15} className="mr-1" /> Главная
+            <ArrowLeft size={16} className="mr-1.5" /> Главная
           </button>
         </div>
 
         {/* Заголовок */}
-        <div className="mb-4">
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
             Цифровой гараж
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-[13px] text-slate-500 mt-1 leading-snug">
             Управление автомобилями, история ТО и страхование
           </p>
         </div>
 
         {/* 1. Карточка профиля и бонусов */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.02)] mb-4">
+        <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
           <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-12 h-12 rounded-full overflow-hidden border border-slate-200/80 bg-slate-100 flex items-center justify-center flex-shrink-0">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className="w-12 h-12 rounded-full overflow-hidden border border-slate-200/80 bg-slate-100 flex items-center justify-center flex-shrink-0 shadow-sm">
                 {user?.photo ? (
                   <img
                     src={user.photo}
@@ -346,12 +347,12 @@ export default function ProfilePage() {
                 )}
               </div>
 
-              <div className="min-w-0">
-                <div className="text-sm font-bold text-slate-900 truncate">
+              <div className="min-w-0 flex-1">
+                <div className="text-[15px] font-bold text-slate-900 truncate leading-snug">
                   {displayName}
                 </div>
-                <div className="text-[11px] text-slate-500 font-medium mt-0.5">
-                  Клиент автохолдинга Прагматика
+                <div className="text-[12px] text-slate-500 font-medium truncate mt-0.5">
+                  {hasCustomName ? "Клиент «Прагматика»" : "Настройки и гараж"}
                 </div>
               </div>
             </div>
@@ -359,25 +360,28 @@ export default function ProfilePage() {
             {/* Бонусный баланс */}
             <button
               onClick={() => navigate("/BonusPage")}
-              className="flex-shrink-0 px-3 py-2 rounded-xl bg-[#8cc63f]/15 hover:bg-[#8cc63f]/25 border border-[#8cc63f]/30 active:scale-95 transition-all text-right text-[#5e8f23]"
+              className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-[#8cc63f]/15 hover:bg-[#8cc63f]/25 border border-[#8cc63f]/30 active:scale-95 transition-all text-[#5e8f23] min-h-[46px] whitespace-nowrap"
+              aria-label="Бонусный баланс"
             >
-              <div className="text-xs font-extrabold tabular-nums tracking-tight">
-                {bonus?.balance !== undefined
-                  ? Number(bonus.balance).toLocaleString("ru-RU")
-                  : "0"}
+              <div className="text-right whitespace-nowrap">
+                <span className="text-sm font-black tabular-nums tracking-tight">
+                  {bonus?.balance !== undefined
+                    ? Number(bonus.balance).toLocaleString("ru-RU")
+                    : "0"}
+                </span>
+                <span className="text-[12px] font-bold ml-1">
+                  баллов
+                </span>
               </div>
-              <div className="text-[10px] font-semibold flex items-center justify-end gap-0.5">
-                <span>баллов</span>
-                <ChevronRight size={11} strokeWidth={2.5} />
-              </div>
+              <ChevronRight size={14} strokeWidth={2.5} className="flex-shrink-0" />
             </button>
           </div>
         </div>
 
         {/* 2. Раздел: Мои автомобили */}
-        <div className="mb-4">
-          <div className="flex items-center justify-between mb-2 px-0.5">
-            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+        <div>
+          <div className="flex items-center justify-between mb-2.5 px-0.5">
+            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
               Автомобили в гараже ({cars.length})
             </h2>
             <button
@@ -387,26 +391,26 @@ export default function ProfilePage() {
                 setVinError("");
                 setShowCarForm(true);
               }}
-              className="text-xs font-bold text-[#5e8f23] hover:underline flex items-center gap-1"
+              className="text-[13px] font-bold text-[#5e8f23] flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#8cc63f]/10 border border-[#8cc63f]/25 active:scale-95 transition-all whitespace-nowrap"
             >
-              <Plus size={14} strokeWidth={2.5} />
+              <Plus size={15} strokeWidth={2.5} />
               <span>Добавить</span>
             </button>
           </div>
 
           {loading ? (
-            <div className="py-6 text-center">
+            <div className="py-8 text-center">
               <Preloader />
             </div>
           ) : cars.length === 0 ? (
-            <div className="bg-white rounded-xl p-6 border border-dashed border-slate-300 text-center">
-              <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mx-auto mb-2">
-                <CarFront size={20} />
+            <div className="bg-white rounded-2xl p-6 border border-dashed border-slate-300 text-center shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+              <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 mx-auto mb-3 shadow-xs">
+                <CarFront size={24} strokeWidth={1.8} />
               </div>
-              <h3 className="text-sm font-bold text-slate-800 mb-1">
+              <h3 className="text-base font-bold text-slate-900 mb-1.5">
                 Гараж пока пуст
               </h3>
-              <p className="text-xs text-slate-500 mb-4 max-w-[240px] mx-auto">
+              <p className="text-[13px] text-slate-500 mb-5 max-w-[280px] mx-auto leading-relaxed">
                 Добавьте свой автомобиль, чтобы отслеживать историю ТО, рекомендации и страховку.
               </p>
               <button
@@ -416,9 +420,10 @@ export default function ProfilePage() {
                   setVinError("");
                   setShowCarForm(true);
                 }}
-                className="px-4 py-2 bg-[#8cc63f] hover:bg-[#7db934] text-white text-xs font-bold rounded-xl shadow-sm transition-all"
+                className="w-full max-w-xs mx-auto py-3 px-5 bg-[#8cc63f] hover:bg-[#7db934] text-white text-[14px] font-bold rounded-xl shadow-sm transition-all min-h-[50px] flex items-center justify-center gap-2 active:scale-[0.98]"
               >
-                + Добавить автомобиль
+                <Plus size={16} strokeWidth={2.5} />
+                <span>Добавить автомобиль</span>
               </button>
             </div>
           ) : (
@@ -426,25 +431,25 @@ export default function ProfilePage() {
               {cars.map((c, i) => (
                 <div
                   key={c.id || i}
-                  className="bg-white rounded-xl border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.02)] p-4"
+                  className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] p-4"
                 >
                   {/* Шапка карточки машины */}
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-start gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-[#8cc63f]/15 flex items-center justify-center text-[#5e8f23] flex-shrink-0 mt-0.5">
-                        <CarFront size={18} strokeWidth={2} />
+                  <div className="flex items-start justify-between mb-3 gap-2">
+                    <div className="flex items-start gap-3 min-w-0 flex-1">
+                      <div className="w-10 h-10 rounded-xl bg-[#8cc63f]/15 flex items-center justify-center text-[#5e8f23] flex-shrink-0 mt-0.5">
+                        <CarFront size={20} strokeWidth={2} />
                       </div>
-                      <div>
-                        <h3 className="text-sm font-bold text-slate-900 leading-snug">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-[15px] font-bold text-slate-900 leading-snug truncate">
                           {c.brand} {c.model}
                         </h3>
-                        <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-500 flex-wrap">
+                        <div className="flex items-center gap-2 mt-1 text-[12px] text-slate-500 flex-wrap">
                           {c.plate && (
-                            <span className="font-semibold text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded">
+                            <span className="font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md text-[11px] whitespace-nowrap">
                               {c.plate}
                             </span>
                           )}
-                          <span className="font-mono text-[11px] text-slate-400">
+                          <span className="font-mono text-[11px] text-slate-400 whitespace-nowrap">
                             VIN: {c.vin}
                           </span>
                         </div>
@@ -452,7 +457,7 @@ export default function ProfilePage() {
                     </div>
 
                     {/* Кнопки управления */}
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
                       <button
                         onClick={() => {
                           setEditIndex(i);
@@ -460,63 +465,63 @@ export default function ProfilePage() {
                           setVinError("");
                           setShowCarForm(true);
                         }}
-                        className="w-7 h-7 rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors"
+                        className="w-8 h-8 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-500 transition-colors"
                         title="Редактировать"
                       >
-                        <Edit3 size={13} />
+                        <Edit3 size={15} />
                       </button>
                       <button
                         onClick={() => deleteCar(i)}
-                        className="w-7 h-7 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center text-red-500 transition-colors"
+                        className="w-8 h-8 rounded-xl bg-red-50 hover:bg-red-100 border border-red-200/80 flex items-center justify-center text-red-500 transition-colors"
                         title="Удалить"
                       >
-                        <Trash2 size={13} />
+                        <Trash2 size={15} />
                       </button>
                     </div>
                   </div>
 
                   {/* Кнопки разделов автомобиля */}
-                  <div className="grid grid-cols-3 gap-1.5 pt-1 border-t border-slate-100">
+                  <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100">
                     {/* Кнопка: История ТО */}
                     <button
                       disabled={loadingRepairs[c.vin]}
                       onClick={() => loadRepairs(c.vin)}
-                      className={`py-2 px-1.5 rounded-lg border text-[11px] font-semibold flex items-center justify-center gap-1 transition-all ${
+                      className={`py-2.5 px-2 rounded-xl border text-[12px] font-bold flex items-center justify-center gap-1.5 transition-all min-h-[44px] ${
                         expandedRepairVIN === c.vin
                           ? "bg-[#8cc63f] text-white border-[#8cc63f]"
-                          : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
+                          : "bg-slate-50/90 border-slate-200/90 text-slate-700 hover:bg-slate-100"
                       }`}
                     >
-                      <Wrench size={12} />
-                      <span>{loadingRepairs[c.vin] ? "…" : "История ТО"}</span>
+                      <Wrench size={14} />
+                      <span className="whitespace-nowrap">{loadingRepairs[c.vin] ? "…" : "История ТО"}</span>
                     </button>
 
                     {/* Кнопка: Рекомендации 1С */}
                     <button
                       disabled={loadingRecs[c.vin]}
                       onClick={() => loadRecommendations(c.vin)}
-                      className={`py-2 px-1.5 rounded-lg border text-[11px] font-semibold flex items-center justify-center gap-1 transition-all ${
+                      className={`py-2.5 px-2 rounded-xl border text-[12px] font-bold flex items-center justify-center gap-1.5 transition-all min-h-[44px] ${
                         openedRecsVIN === c.vin
                           ? "bg-purple-600 text-white border-purple-600"
                           : "bg-purple-50/70 border-purple-200 text-purple-700 hover:bg-purple-100/70"
                       }`}
                     >
-                      <Sparkles size={12} />
-                      <span>{loadingRecs[c.vin] ? "…" : "Советы 1С"}</span>
+                      <Sparkles size={14} />
+                      <span className="whitespace-nowrap">{loadingRecs[c.vin] ? "…" : "Советы 1С"}</span>
                     </button>
 
                     {/* Кнопка: Страховки */}
                     <button
                       disabled={loadingInsurance[c.vin]}
                       onClick={() => loadInsurancePolicies(c.vin)}
-                      className={`py-2 px-1.5 rounded-lg border text-[11px] font-semibold flex items-center justify-center gap-1 transition-all ${
+                      className={`py-2.5 px-2 rounded-xl border text-[12px] font-bold flex items-center justify-center gap-1.5 transition-all min-h-[44px] ${
                         openedInsuranceVIN === c.vin
                           ? "bg-indigo-600 text-white border-indigo-600"
                           : "bg-indigo-50/70 border-indigo-200 text-indigo-700 hover:bg-indigo-100/70"
                       }`}
                     >
-                      <ShieldCheck size={12} />
-                      <span>{loadingInsurance[c.vin] ? "…" : "Полисы"}</span>
+                      <ShieldCheck size={14} />
+                      <span className="whitespace-nowrap">{loadingInsurance[c.vin] ? "…" : "Полисы"}</span>
                     </button>
                   </div>
 
@@ -729,27 +734,28 @@ export default function ProfilePage() {
         </div>
 
         {/* 3. Горячая линия поддержки */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.02)] mb-4 flex items-center justify-between">
+        <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex items-center justify-between gap-3 min-h-[76px]">
           <div>
-            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
               Единый контакт-центр
             </div>
             <a
               href="tel:88003332130"
-              className="text-base font-extrabold text-slate-900 hover:text-[#5e8f23] transition-colors mt-0.5 block"
+              className="text-lg font-black text-slate-900 hover:text-[#5e8f23] transition-colors mt-0.5 block tracking-tight whitespace-nowrap"
             >
               8 800 333 21 30
             </a>
-            <div className="text-[11px] text-slate-500">
+            <div className="text-[12px] text-slate-500 whitespace-nowrap">
               Звонок по России бесплатный
             </div>
           </div>
 
           <a
             href="tel:88003332130"
-            className="w-9 h-9 rounded-xl bg-[#8cc63f]/15 flex items-center justify-center text-[#5e8f23] hover:bg-[#8cc63f] hover:text-white transition-colors"
+            className="w-12 h-12 rounded-2xl bg-[#8cc63f]/15 flex items-center justify-center text-[#5e8f23] hover:bg-[#8cc63f] hover:text-white transition-all shadow-xs flex-shrink-0"
+            aria-label="Позвонить в контакт-центр"
           >
-            <Phone size={16} />
+            <Phone size={19} strokeWidth={2} />
           </a>
         </div>
       </div>
@@ -759,29 +765,30 @@ export default function ProfilePage() {
          ==================================================================== */}
       {showCarForm && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl w-full max-w-sm p-5 shadow-2xl border border-slate-200 relative">
+          <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-2xl border border-slate-200 relative">
             <button
               onClick={() => setShowCarForm(false)}
-              className="absolute top-4 right-4 w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500"
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition-colors"
+              aria-label="Закрыть"
             >
-              <X size={15} />
+              <X size={17} />
             </button>
 
-            <h3 className="text-sm font-bold text-slate-900 mb-1">
+            <h3 className="text-base font-bold text-slate-900 mb-1">
               {editIndex !== null ? "Редактировать автомобиль" : "Добавить автомобиль в гараж"}
             </h3>
-            <p className="text-[11px] text-slate-500 mb-3.5 leading-normal">
+            <p className="text-[12px] text-slate-500 mb-4 leading-normal">
               Укажите данные автомобиля для привязки к дилерской истории ТО.
             </p>
 
-            <div className="space-y-3">
+            <div className="space-y-3.5">
               {/* Марка */}
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                <label className="block text-[12px] font-semibold text-slate-700 mb-1">
                   Марка *
                 </label>
                 <select
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50"
+                  className="w-full px-3.5 py-2.5 text-[14px] rounded-xl border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50 min-h-[44px]"
                   value={carForm.brand}
                   onChange={(e) =>
                     setCarForm({ ...carForm, brand: e.target.value, model: "" })
@@ -798,11 +805,11 @@ export default function ProfilePage() {
 
               {/* Модель */}
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                <label className="block text-[12px] font-semibold text-slate-700 mb-1">
                   Модель *
                 </label>
                 <select
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50"
+                  className="w-full px-3.5 py-2.5 text-[14px] rounded-xl border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50 min-h-[44px]"
                   disabled={!carForm.brand}
                   value={carForm.model}
                   onChange={(e) =>
@@ -821,11 +828,11 @@ export default function ProfilePage() {
 
               {/* VIN */}
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                <label className="block text-[12px] font-semibold text-slate-700 mb-1">
                   VIN-номер (17 знаков) *
                 </label>
                 <input
-                  className={`w-full px-3 py-2 text-xs rounded-lg border focus:outline-none bg-slate-50/50 uppercase font-mono ${
+                  className={`w-full px-3.5 py-2.5 text-[14px] rounded-xl border focus:outline-none bg-slate-50/50 uppercase font-mono min-h-[44px] ${
                     vinError
                       ? "border-red-500 focus:border-red-500"
                       : "border-slate-200 focus:border-[#8cc63f]"
@@ -840,17 +847,17 @@ export default function ProfilePage() {
                   }}
                 />
                 {vinError && (
-                  <p className="text-[11px] text-red-500 mt-1 font-medium">{vinError}</p>
+                  <p className="text-[12px] text-red-500 mt-1 font-medium">{vinError}</p>
                 )}
               </div>
 
               {/* Госномер */}
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                <label className="block text-[12px] font-semibold text-slate-700 mb-1">
                   Госномер (по желанию)
                 </label>
                 <input
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50 uppercase"
+                  className="w-full px-3.5 py-2.5 text-[14px] rounded-xl border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50 uppercase min-h-[44px]"
                   placeholder="А 123 АА 198"
                   value={carForm.plate}
                   onChange={(e) =>
@@ -863,7 +870,7 @@ export default function ProfilePage() {
                 <button
                   onClick={saveCar}
                   disabled={savingCar || !validateVIN(carForm.vin)}
-                  className="w-full py-2.5 rounded-xl bg-[#8cc63f] hover:bg-[#7db934] disabled:opacity-50 text-white text-xs font-bold transition-all shadow-sm active:scale-[0.98]"
+                  className="w-full py-3 rounded-xl bg-[#8cc63f] hover:bg-[#7db934] disabled:opacity-50 text-white text-[14px] font-bold transition-all shadow-sm active:scale-[0.98] min-h-[50px]"
                 >
                   {savingCar ? "Сохранение в гараже…" : "Сохранить автомобиль"}
                 </button>
@@ -918,34 +925,35 @@ export default function ProfilePage() {
                 setInsuranceSending(false);
               }
             }}
-            className="bg-white rounded-2xl w-full max-w-sm p-5 shadow-2xl border border-slate-200 relative"
+            className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-2xl border border-slate-200 relative"
           >
             <button
               type="button"
               onClick={() => setInsuranceModalOpen(false)}
-              className="absolute top-4 right-4 w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500"
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition-colors"
+              aria-label="Закрыть"
             >
-              <X size={15} />
+              <X size={17} />
             </button>
 
-            <h3 className="text-sm font-bold text-slate-900 mb-1">
+            <h3 className="text-base font-bold text-slate-900 mb-1">
               {insuranceForm.action === "renew"
                 ? "Продление страхового полиса"
                 : "Оформление страхового полиса"}
             </h3>
-            <p className="text-[11px] text-slate-500 mb-3.5">
+            <p className="text-[12px] text-slate-500 mb-4 leading-normal">
               Подберем выгодные тарифы ОСАГО и КАСКО в ведущих страховых компаниях.
             </p>
 
-            <div className="space-y-2.5">
+            <div className="space-y-3.5">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                <label className="block text-[12px] font-semibold text-slate-700 mb-1">
                   Ваше имя *
                 </label>
                 <input
                   required
                   placeholder="Имя"
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50"
+                  className="w-full px-3.5 py-2.5 text-[14px] rounded-xl border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50 min-h-[44px]"
                   value={insuranceForm.name}
                   onChange={(e) =>
                     setInsuranceForm({ ...insuranceForm, name: e.target.value })
@@ -954,13 +962,13 @@ export default function ProfilePage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                <label className="block text-[12px] font-semibold text-slate-700 mb-1">
                   Телефон *
                 </label>
                 <input
                   required
                   placeholder="+7 (___) ___-__-__"
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50"
+                  className="w-full px-3.5 py-2.5 text-[14px] rounded-xl border border-slate-200 focus:outline-none focus:border-[#8cc63f] bg-slate-50/50 min-h-[44px]"
                   value={insuranceForm.phone}
                   onChange={(e) =>
                     setInsuranceForm({ ...insuranceForm, phone: e.target.value })
@@ -969,12 +977,12 @@ export default function ProfilePage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                <label className="block text-[12px] font-semibold text-slate-700 mb-1">
                   Автомобиль
                 </label>
                 <input
                   disabled
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 bg-slate-100 text-slate-600"
+                  className="w-full px-3.5 py-2.5 text-[14px] rounded-xl border border-slate-200 bg-slate-100 text-slate-600 min-h-[44px]"
                   value={insuranceForm.model}
                 />
               </div>
@@ -983,7 +991,7 @@ export default function ProfilePage() {
                 <button
                   type="submit"
                   disabled={insuranceSending}
-                  className="w-full py-2.5 rounded-xl bg-[#8cc63f] hover:bg-[#7db934] disabled:opacity-50 text-white text-xs font-bold transition-all shadow-sm active:scale-[0.98]"
+                  className="w-full py-3 rounded-xl bg-[#8cc63f] hover:bg-[#7db934] disabled:opacity-50 text-white text-[14px] font-bold transition-all shadow-sm active:scale-[0.98] min-h-[50px]"
                 >
                   {insuranceSending ? "Отправка заявки…" : "Отправить заявку"}
                 </button>

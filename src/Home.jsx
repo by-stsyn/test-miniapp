@@ -279,10 +279,10 @@ export default function Home() {
     );
   }
 
-  const fullName =
-    user?.first_name && user.first_name !== "Пользователь"
-      ? `${user.first_name}${user.last_name ? ` ${user.last_name}` : ""}`
-      : "Личный кабинет";
+  const hasCustomName = Boolean(user?.first_name && user.first_name !== "Пользователь");
+  const fullName = hasCustomName
+    ? `${user.first_name}${user.last_name ? ` ${user.last_name}` : ""}`
+    : "Личный кабинет";
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 pb-28">
@@ -290,24 +290,24 @@ export default function Home() {
           1. ВЕРХНЯЯ ПАНЕЛЬ: Полный логотип + Кнопка личного кабинета
          ==================================================================== */}
       <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 py-3">
-        <div className="max-w-md mx-auto flex items-center justify-between">
-          <div className="flex items-center">
+        <div className="max-w-md mx-auto flex items-center justify-between gap-2">
+          <div className="flex items-center flex-shrink-0">
             <img
               src="/logo-pragmatika.svg"
               alt="Прагматика"
-              className="h-8 w-auto object-contain max-w-[180px]"
+              className="h-8 w-auto object-contain max-w-[175px]"
             />
           </div>
 
           <button
             onClick={navigateTo("/ProfilePage")}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/90 active:scale-[0.98] transition-all min-h-[44px]"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/90 active:scale-[0.98] transition-all min-h-[40px] whitespace-nowrap flex-shrink-0"
             aria-label="Личный кабинет"
           >
-            <span className="text-[13px] font-semibold text-slate-700">
+            <span className="text-[13px] font-semibold text-slate-700 whitespace-nowrap">
               Личный кабинет
             </span>
-            <ChevronRight size={14} className="text-slate-400" />
+            <ChevronRight size={14} className="text-slate-400 flex-shrink-0" />
           </button>
         </div>
       </header>
@@ -346,8 +346,8 @@ export default function Home() {
                     {fullName}
                   </div>
                   <div className="text-[13px] text-slate-500 font-medium flex items-center gap-1 mt-0.5">
-                    <span>Личный кабинет</span>
-                    <ChevronRight size={14} className="text-slate-400" />
+                    <span className="truncate">{hasCustomName ? "Личный кабинет" : "Настройки и гараж"}</span>
+                    <ChevronRight size={14} className="text-slate-400 flex-shrink-0" />
                   </div>
                 </div>
               </button>
@@ -506,19 +506,25 @@ export default function Home() {
               </div>
             ) : (
               <div className="space-y-2.5">
+                {/* Добавить автомобиль в гараж */}
                 <button
                   onClick={navigateTo("/ProfilePage")}
-                  className="w-full flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-dashed border-slate-300 hover:border-[#8cc63f] text-left active:scale-[0.99] transition-all min-h-[52px]"
+                  className="w-full flex items-center justify-between p-3 rounded-xl bg-slate-50/90 hover:bg-slate-100 border border-dashed border-slate-300 hover:border-[#8cc63f] text-left active:scale-[0.99] transition-all min-h-[54px] gap-2.5"
                 >
-                  <div className="flex items-center gap-2.5 text-slate-600">
-                    <div className="w-7 h-7 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-600 flex-shrink-0">
-                      <Plus size={15} strokeWidth={2.5} />
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-600 flex-shrink-0 shadow-xs">
+                      <Plus size={16} strokeWidth={2.5} />
                     </div>
-                    <span className="text-[14px] font-medium text-slate-700">
-                      Добавить свой автомобиль в гараж
-                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[14px] font-bold text-slate-800 leading-tight truncate">
+                        Добавить авто в гараж
+                      </div>
+                      <div className="text-[12px] text-slate-500 leading-tight mt-0.5 truncate">
+                        Учёт ТО, страховок и сервиса
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-[13px] font-semibold text-[#6fa52c] flex-shrink-0">
+                  <span className="text-[12px] font-bold text-[#6fa52c] flex-shrink-0 whitespace-nowrap px-2.5 py-1.5 rounded-lg bg-white/80 border border-slate-200/80 shadow-xs">
                     В гараж →
                   </span>
                 </button>
@@ -526,15 +532,22 @@ export default function Home() {
                 {/* Баннер экспресс-оценки Trade-in если авто еще не в профиле */}
                 <button
                   onClick={handleOpenTradeIn}
-                  className="w-full flex items-center justify-between px-3.5 py-3 rounded-xl bg-gradient-to-r from-slate-50 to-[#8cc63f]/10 border border-slate-200/80 text-left active:scale-[0.99] transition-all min-h-[50px]"
+                  className="w-full flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-slate-50 via-[#8cc63f]/10 to-transparent border border-slate-200/90 text-left active:scale-[0.99] transition-all min-h-[54px] gap-2.5"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <RefreshCw size={15} className="text-[#5e8f23]" />
-                    <span className="text-[13px] font-semibold text-slate-800">
-                      Хотите обменять автомобиль? Оценка в Trade-in
-                    </span>
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <div className="w-8 h-8 rounded-lg bg-[#8cc63f]/15 flex items-center justify-center text-[#5e8f23] flex-shrink-0">
+                      <RefreshCw size={16} strokeWidth={2} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[14px] font-bold text-slate-900 leading-tight truncate">
+                        Оценка в Trade-in
+                      </div>
+                      <div className="text-[12px] text-slate-500 leading-tight mt-0.5 truncate">
+                        Узнать цену и выгоду обмена
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-[13px] font-bold text-[#5e8f23]">
+                  <span className="text-[12px] font-bold text-[#5e8f23] flex-shrink-0 whitespace-nowrap px-2.5 py-1.5 rounded-lg bg-white/90 border border-[#8cc63f]/30 shadow-xs">
                     Оценить →
                   </span>
                 </button>
@@ -585,9 +598,9 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-baseline justify-between">
-                <span className="text-[12px] text-slate-400 font-medium">В наличии:</span>
-                <span className="text-base sm:text-lg font-black text-[#5e8f23] tabular-nums tracking-tight">
+              <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-baseline justify-between whitespace-nowrap gap-1">
+                <span className="text-[12px] text-slate-400 font-medium whitespace-nowrap">В наличии:</span>
+                <span className="text-base sm:text-lg font-black text-[#5e8f23] tabular-nums tracking-tight whitespace-nowrap">
                   {newCount !== null ? newCount.toLocaleString("ru-RU") : "…"}
                 </span>
               </div>
@@ -618,9 +631,9 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-baseline justify-between">
-                <span className="text-[12px] text-slate-400 font-medium">В наличии:</span>
-                <span className="text-base sm:text-lg font-black text-slate-900 tabular-nums tracking-tight">
+              <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-baseline justify-between whitespace-nowrap gap-1">
+                <span className="text-[12px] text-slate-400 font-medium whitespace-nowrap">В наличии:</span>
+                <span className="text-base sm:text-lg font-black text-slate-900 tabular-nums tracking-tight whitespace-nowrap">
                   {usedCount !== null ? usedCount.toLocaleString("ru-RU") : "…"}
                 </span>
               </div>
