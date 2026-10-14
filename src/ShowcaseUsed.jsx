@@ -481,22 +481,26 @@ useEffect(() => {
             {children}
           </div>
         )}
-        renderThumb={({ props }) => (
-          <div
-           {...props}
-        className="rounded-full shadow cursor-pointer"
-        style={{
-          ...props.style,
-          height: '20px',
-          width: '20px',
-          backgroundColor: '#8cc63f',
-          border: '2px solid white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+        renderThumb={({ props }) => {
+          const { key, ...thumbProps } = props;
+          return (
+            <div
+              key={key}
+              {...thumbProps}
+              className="rounded-full shadow cursor-pointer"
+              style={{
+                ...thumbProps.style,
+                height: '20px',
+                width: '20px',
+                backgroundColor: '#8cc63f',
+                border: '2px solid white',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            />
+          );
         }}
-          />
-        )}
       />
     </div>
 
@@ -530,22 +534,26 @@ useEffect(() => {
             {children}
           </div>
         )}
-        renderThumb={({ props }) => (
-          <div
-           {...props}
-        className="rounded-full shadow cursor-pointer"
-        style={{
-          ...props.style,
-          height: '20px',
-          width: '20px',
-          backgroundColor: '#8cc63f',
-          border: '2px solid white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+        renderThumb={({ props }) => {
+          const { key, ...thumbProps } = props;
+          return (
+            <div
+              key={key}
+              {...thumbProps}
+              className="rounded-full shadow cursor-pointer"
+              style={{
+                ...thumbProps.style,
+                height: '20px',
+                width: '20px',
+                backgroundColor: '#8cc63f',
+                border: '2px solid white',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            />
+          );
         }}
-          />
-        )}
       />
     </div>
 
@@ -579,22 +587,26 @@ useEffect(() => {
         {children}
       </div>
     )}
-    renderThumb={({ props }) => (
-      <div
-        {...props}
-        className="rounded-full shadow cursor-pointer"
-        style={{
-          ...props.style,
-          height: '20px',
-          width: '20px',
-          backgroundColor: '#8cc63f',
-          border: '2px solid white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      />
-    )}
+    renderThumb={({ props }) => {
+      const { key, ...thumbProps } = props;
+      return (
+        <div
+          key={key}
+          {...thumbProps}
+          className="rounded-full shadow cursor-pointer"
+          style={{
+            ...thumbProps.style,
+            height: '20px',
+            width: '20px',
+            backgroundColor: '#8cc63f',
+            border: '2px solid white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      );
+    }}
   />
 </div>
   {/* Кнопка сброса фильтров */}
@@ -872,22 +884,26 @@ useEffect(() => {
             {children}
           </div>
         )}
-        renderThumb={({ props }) => (
-          <div
-           {...props}
-        className="rounded-full shadow cursor-pointer"
-        style={{
-          ...props.style,
-          height: '20px',
-          width: '20px',
-          backgroundColor: '#8cc63f',
-          border: '2px solid white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+        renderThumb={({ props }) => {
+          const { key, ...thumbProps } = props;
+          return (
+            <div
+              key={key}
+              {...thumbProps}
+              className="rounded-full shadow cursor-pointer"
+              style={{
+                ...thumbProps.style,
+                height: '20px',
+                width: '20px',
+                backgroundColor: '#8cc63f',
+                border: '2px solid white',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            />
+          );
         }}
-          />
-        )}
       />
     </div>
 
@@ -921,22 +937,26 @@ useEffect(() => {
             {children}
           </div>
         )}
-        renderThumb={({ props }) => (
-          <div
-           {...props}
-        className="rounded-full shadow cursor-pointer"
-        style={{
-          ...props.style,
-          height: '20px',
-          width: '20px',
-          backgroundColor: '#8cc63f',
-          border: '2px solid white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+        renderThumb={({ props }) => {
+          const { key, ...thumbProps } = props;
+          return (
+            <div
+              key={key}
+              {...thumbProps}
+              className="rounded-full shadow cursor-pointer"
+              style={{
+                ...thumbProps.style,
+                height: '20px',
+                width: '20px',
+                backgroundColor: '#8cc63f',
+                border: '2px solid white',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            />
+          );
         }}
-          />
-        )}
       />
     </div>
 
@@ -970,22 +990,26 @@ useEffect(() => {
         {children}
       </div>
     )}
-    renderThumb={({ props }) => (
-      <div
-        {...props}
-        className="rounded-full shadow cursor-pointer"
-        style={{
-          ...props.style,
-          height: '20px',
-          width: '20px',
-          backgroundColor: '#8cc63f',
-          border: '2px solid white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      />
-    )}
+    renderThumb={({ props }) => {
+      const { key, ...thumbProps } = props;
+      return (
+        <div
+          key={key}
+          {...thumbProps}
+          className="rounded-full shadow cursor-pointer"
+          style={{
+            ...thumbProps.style,
+            height: '20px',
+            width: '20px',
+            backgroundColor: '#8cc63f',
+            border: '2px solid white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      );
+    }}
   />
 </div>
 

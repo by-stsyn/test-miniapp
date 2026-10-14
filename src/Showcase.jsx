@@ -92,7 +92,7 @@ const dealerNameMap = {
   "Прагматика LADA Великий Новгород|lada": "LADA Великий Новгород",
   "Прагматика LADA Великие Луки|lada": "LADA Великие Луки",
   "ПРАГМАТИКА ЛАДА Xcite|xcite": "XCITE Купчино",
-  "Прагматика LADA Мончегорск|xcite": "LADA Мончегорск",
+  "Прагматика LADA Мончегорск|lada": "LADA Мончегорск",
 	"Петрозаводск-Лада Lada (ВАЗ)|xcite": "XCITE Петрозаводск",
   "Прагматика LADA Великий Новгород|xcite": "XCITE Великий Новгород",
   "Прагматика LADA Великие Луки|xcite": "XCITE Великие Луки",
@@ -581,22 +581,26 @@ return {
         {children}
       </div>
     )}
-    renderThumb={({ props }) => (
-      <div
-        {...props}
-        className="rounded-full shadow cursor-pointer"
-        style={{
-          ...props.style,
-          height: '20px',
-          width: '20px',
-          backgroundColor: '#8cc63f',
-          border: '2px solid white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      />
-    )}
+    renderThumb={({ props }) => {
+      const { key, ...thumbProps } = props;
+      return (
+        <div
+          key={key}
+          {...thumbProps}
+          className="rounded-full shadow cursor-pointer"
+          style={{
+            ...thumbProps.style,
+            height: '20px',
+            width: '20px',
+            backgroundColor: '#8cc63f',
+            border: '2px solid white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      );
+    }}
   />
 </div>
 
@@ -877,22 +881,26 @@ return {
         {children}
       </div>
     )}
-    renderThumb={({ props }) => (
-      <div
-        {...props}
-        className="rounded-full shadow cursor-pointer"
-        style={{
-          ...props.style,
-          height: '20px',
-          width: '20px',
-          backgroundColor: '#8cc63f',
-          border: '2px solid white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      />
-    )}
+    renderThumb={({ props }) => {
+      const { key, ...thumbProps } = props;
+      return (
+        <div
+          key={key}
+          {...thumbProps}
+          className="rounded-full shadow cursor-pointer"
+          style={{
+            ...thumbProps.style,
+            height: '20px',
+            width: '20px',
+            backgroundColor: '#8cc63f',
+            border: '2px solid white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      );
+    }}
   />
 </div>           
 		   <div className="mt-4 flex justify-between">
